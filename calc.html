@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: rgb(24, 21, 17);
+        }
+
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 50px;
+            padding: 15px;
+            padding-right: 25px;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .calculator h1 {
+            font-size: 24px;
+        }
+
+        .calculator input[type="text"] {
+            width: 100%;
+            height: 50px;
+            font-size: 30px;
+            padding: 5px;
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .calculator .row {
+            display: flex;
+        }
+
+        .calculator .buttons {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calculator .buttons button {
+            width: calc(33.33% - 10px);
+            height: 50px;
+            font-size: 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+           
+        }
+
+        .operators{
+            display: flex;
+            flex-direction:column;
+            width: 20%;
+        }
+
+        .calculator .operators button,.orange {
+            display: flex;
+            justify-content: center;
+            
+            font-size: 25px;
+            padding: 10px 5px 10px 5px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #ff9900;
+        }
+
+        .calculator .delete-button {
+            width: calc(33.33% - 10px);
+            height: 35px;
+            font-size: 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #d9534f;
+            color: white;
+        }
+
+        .calculator .buttons button:hover,
+        .calculator .operators button:hover,
+        .calculator .delete-button:hover {
+            background-color: #555;
+        }
+
+        .calculator button {
+            cursor: pointer;
+        }
+
+        .btn-row{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .last-row{
+            display: flex;
+            justify-content: space-around;
+            gap: 9px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #num1{
+                width: 90%;
+                padding: 16px 12px;
+                text-align: right;
+                font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1 style="font-weight:800;font-size:24px">Calculator</h1>
+        <input  type="text" id="num1" placeholder="Enter the expression">
+        <div class="row" style="margin-top:10px">
+            <div class="buttons">
+                <div class="btn-row">
+                <button onclick="appendToDisplay('7')">7</button>
+                <button onclick="appendToDisplay('8')">8</button>
+                <button onclick="appendToDisplay('9')">9</button>
+            </div><div class="btn-row">
+                <button onclick="appendToDisplay('4')">4</button>
+                <button onclick="appendToDisplay('5')">5</button>
+                <button onclick="appendToDisplay('6')">6</button>
+            </div><div class="btn-row">
+                <button onclick="appendToDisplay('1')">1</button>
+                <button onclick="appendToDisplay('2')">2</button>
+                <button onclick="appendToDisplay('3')">3</button>
+            </div><div class="btn-row">
+                <button onclick="appendToDisplay('.')">.</button>
+                <button onclick="appendToDisplay('0')">0</button>
+                <button class="delete-button" onclick="backspace()">&#9003;</button>
+            </div>
+            </div>
+            <div class="operators">
+                <button onclick="appendToDisplay('+')">+</button>
+                <button onclick="appendToDisplay('-')">-</button>
+                <button onclick="appendToDisplay('*')">*</button>
+                <button onclick="appendToDisplay('÷')">÷</button> <!-- Use the "÷" symbol for divide -->
+            </div>
+        </div>
+        <div class="btn-row last-row">
+            <button class="orange" style="flex:1;" onclick="appendToDisplay('%')">%</button>
+            <button class="orange" style="flex:1" onclick="clearDisplay()">C</button>
+            <button class="orange" style="flex:2" onclick="calculate()" class="operators-button">=</button>
+        </div>
+    </div>
+
+    <script>
+        function appendToDisplay(value) {
+            document.getElementById("num1").value += value;
+        }
+
+        function backspace() {
+            var currentValue = document.getElementById("num1").value;
+            document.getElementById("num1").value = currentValue.slice(0, -1);
+        }
+
+        function clearDisplay() {
+            document.getElementById("num1").value = '';
+        }
+
+        function calculate() {
+            var expression = document.getElementById("num1").value;
+            expression = expression.replace(/÷/g, '/'); // Replace "÷" with "/"
+            try {
+                var result = eval(expression);
+                document.getElementById("num1").value = result;
+            } catch (error) {
+                document.getElementById("num1").value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
